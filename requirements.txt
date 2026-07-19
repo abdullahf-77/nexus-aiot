@@ -1,0 +1,27 @@
+# Nexus AIoT  |  AI-Powered Touchless Smart Environment System
+# Install with:  pip install -r requirements.txt
+# Python 3.11 recommended (3.10+ works)  |  Windows 10 / 11
+
+# Core vision stack
+opencv-python==4.9.0.80
+mediapipe==0.10.14
+numpy==1.26.4
+
+# Text-to-speech (offline, no API key)
+pyttsx3==2.90
+
+# Speech recognition (needs internet for Google STT)
+SpeechRecognition==3.10.4
+
+# Microphone input backend for SpeechRecognition
+PyAudio==0.2.14
+
+# Notes:
+#   winsound is built into Python on Windows — no install needed.
+#
+#   If PyAudio fails on Windows:
+#     pip install pipwin
+#     pipwin install pyaudio
+#
+#   To run without voice/mic (still fully functional):
+#     pip install opencv-python mediapipe numpy pyttsx3
