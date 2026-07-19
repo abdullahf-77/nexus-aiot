@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install system dependencies (OpenCV + PyAudio build deps)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libgl1 libglib2.0-0 portaudio19-dev
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # main.py opens a webcam only inside `if __name__ == "__main__":`,
+      # so importing every module here is safe in a headless CI runner —
+      # no camera/microphone is ever opened during import.
+      - name: Import-verify all modules
+        run: |
+          python -c "
+          import config, face_module, gesture_detector, password_module
+          import sound_module, smart_room, ui_renderer, voice_module, main
+          print('OK: all NEXUS modules import cleanly')
+          "

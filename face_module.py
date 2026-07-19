@@ -9,6 +9,16 @@ import time
 
 
 class FaceModule:
+    """
+    Presence-based face detection and pseudo-authorization.
+
+    This does NOT perform face recognition or identity matching — it uses
+    Haar cascade detection to check whether *a* face is present, and treats
+    any face that stays continuously visible for AUTH_DELAY seconds as
+    "Authorized". It cannot tell users apart. Per-identity face registration
+    (e.g. enrolling reference photos into faces/) is not implemented; see
+    the README's "Future Improvements" section for a suggested design.
+    """
 
     CHECK_INTERVAL   = 20
     PRESENCE_TIMEOUT = 3.0
